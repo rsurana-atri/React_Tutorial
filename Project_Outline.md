@@ -19,12 +19,12 @@
 - Uses **React Table** [] to display a list of recipes
 - **Columns:**
   - [ ] **ID** (link to edit recipe using **React Router Link** [])
-  - [ ] **Recipe Name**
+  - [ ] **Recipe Name** (text field)
   - [ ] **Ingredients** (list of selected ingredients)
   - [ ] **Vegetarian** (Yes/No)
   - [ ] **Vegan** (Yes/No)
   - [ ] **Difficulty Level** (Easy, Medium, Hard)
-  - [ ] Button to **add a new recipe** (modal using **Reactstrap** [] if time permits)
+  - [ ] Button to **add a new recipe** (using **Reactstrap** [] if time allows)
 
 ---
 
@@ -64,4 +64,4 @@
 - [ ] Create a **useRecipes** custom hook for managing recipe operations
   - [ ] Provides `recipes`, `addRecipe`, `editRecipe`, `deleteRecipe`
 - [ ] Incorporate a **chart** [] (e.g., bar chart showing the number of vegetarian vs. non-vegetarian recipes)
-- [ ] Use `json-server` and `axios` [] for persistent data storage
+- [ ] Incorporate an `explore` page that pulls from NYT recipies
