@@ -10,13 +10,13 @@ const HomePage: React.FC = () => {
     return <div>Error: Recipe Context not available</div>;
   }
 
-  const { recipes } = recipeContext;
+  const { recipes, deleteRecipe } = recipeContext;
 
   return (
     <div>
       <h1>Recipe Manager</h1>
       <Link to="/add-recipe">➕ Add New Recipe</Link>
-      {recipes.length > 0 ? <RecipeList recipes={recipes} /> : <p>No recipes found.</p>}
+      {recipes.length > 0 ? <RecipeList recipes={recipes} deleteRecipe={deleteRecipe} /> : <p>No recipes found.</p>}
     </div>
   );
 };

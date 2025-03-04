@@ -13,9 +13,10 @@ interface Recipe {
 
 interface RecipeListProps {
   recipes: Recipe[];
+  deleteRecipe: (id: number) => void;
 }
 
-const RecipeList = ({ recipes }: RecipeListProps): React.ReactElement => {
+const RecipeList = ({ recipes, deleteRecipe }: RecipeListProps): React.ReactElement => {
   const columns: Column<Recipe>[] = useMemo(
     () => [
       { Header: "ID", accessor: "id" },
@@ -39,10 +40,28 @@ const RecipeList = ({ recipes }: RecipeListProps): React.ReactElement => {
       {
         Header: "Actions",
         Cell: ({ row }: { row: { original: Recipe } }) =>
-          React.createElement(Link, { to: `/edit-recipe/${row.original.id}` }, "✏️ Edit"),
+          React.createElement(
+            "div",
+            {style: {display: "flex", gap: "10px"} },
+            React.createElement(Link, { to: `/edit-recipe/${row.original.id}` }, "✏️"),
+            React.createElement(
+              "button",
+              {
+                onClick: () => deleteRecipe(row.original.id),
+                style:{
+                  border: "none",
+                  background: "none",
+                  cursor: "none",
+                  fontSize: "none",
+                  color: "red",
+                },
+              },
+              "❌"
+            )
+          )
       },
     ],
-    []
+    [deleteRecipe]
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
