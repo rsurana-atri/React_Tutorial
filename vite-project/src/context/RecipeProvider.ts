@@ -1,5 +1,6 @@
 import React, { createContext, useState, ReactNode } from "react";
 import sampleData from "../utils/sampleData";
+// create basic sample pages with the following recipe context
 
 type DifficultyLevel = "Easy" | "Medium" | "Hard";
 
@@ -8,6 +9,7 @@ interface Recipe {
   name: string;
   ingredients: string[];
   vegetarian: boolean;
+  vegan: boolean;
   difficulty: DifficultyLevel;
 }
 
@@ -25,7 +27,7 @@ interface RecipeProviderProps {
 }
 
 const RecipeProvider = ({ children }: RecipeProviderProps): React.ReactElement => {
-  const [recipes, setRecipes] = useState<Recipe[]>(sampleData);
+  const [recipes, setRecipes] = useState<Recipe[]>(sampleData); //react axios + json server
 
   const addRecipe = (newRecipe: Recipe) => {
     setRecipes((prev) => [...prev, { ...newRecipe, id: prev.length + 1 }]);

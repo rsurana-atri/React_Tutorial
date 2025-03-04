@@ -5,6 +5,7 @@ interface Recipe {
   name: string;
   ingredients: string[];
   vegetarian: boolean;
+  vegan: boolean;
   difficulty: DifficultyLevel; 
 }
 
@@ -14,6 +15,7 @@ const sampleData: Recipe[] = [
     name: "Spaghetti Bolognese",
     ingredients: ["Pasta", "Meat", "Tomato Sauce"],
     vegetarian: false,
+    vegan: false,
     difficulty: "Medium",
   },
   {
@@ -21,6 +23,7 @@ const sampleData: Recipe[] = [
     name: "Vegetable Stir Fry",
     ingredients: ["Carrots", "Broccoli", "Soy Sauce"],
     vegetarian: true,
+    vegan: true,
     difficulty: "Easy",
   },
 ];

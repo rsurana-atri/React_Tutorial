@@ -7,6 +7,7 @@ interface Recipe {
   name: string;
   ingredients: string[];
   vegetarian: boolean;
+  vegan: boolean;
   difficulty: "Easy" | "Medium" | "Hard";
 }
 
@@ -27,6 +28,11 @@ const RecipeList = ({ recipes }: RecipeListProps): React.ReactElement => {
       {
         Header: "Vegetarian",
         accessor: "vegetarian",
+        Cell: ({ value }: { value: boolean }) => (value ? "Yes" : "No"),
+      },
+      {
+        Header: "Vegan",
+        accessor: "vegan",
         Cell: ({ value }: { value: boolean }) => (value ? "Yes" : "No"),
       },
       { Header: "Difficulty", accessor: "difficulty" },
