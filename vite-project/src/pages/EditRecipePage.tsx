@@ -2,7 +2,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { RecipeContext } from "../context/RecipeProvider";
-import React from "react";
 
 interface EditRecipeForm {
   name: string;
@@ -17,20 +16,12 @@ const EditRecipePage: React.FC = () => {
   const navigate = useNavigate();
   const recipeContext = useContext(RecipeContext);
   const { register, handleSubmit, setValue } = useForm<EditRecipeForm>();
-  const params = useParams();
-  console.log("🔍 params:", params);
-
-  console.log("🔍 recipeId from URL:", recipeId);
 
   const { recipes, editRecipe } = recipeContext!;
-  console.log("📋 Current recipes:", recipes);
-
   const recipe = recipes.find((r) => r.id === Number(recipeId)) || null;
-  console.log("🔎 Found recipe:", recipe);
 
   useEffect(() => {
     if (recipe) {
-      console.log("🎯 Setting form values for:", recipe);
       setValue("name", recipe.name);
       setValue("ingredients", recipe.ingredients.join(", "));
       setValue("vegetarian", recipe.vegetarian);
@@ -51,48 +42,45 @@ const EditRecipePage: React.FC = () => {
       difficulty: data.difficulty,
     };
 
-    console.log("✅ Updating recipe:", updatedRecipe);
     editRecipe(updatedRecipe);
     navigate("/");
   };
 
-  return recipe
-    ? React.createElement(
-        "div",
-        null,
-        React.createElement("h1", null, `Edit Recipe: ${recipe.name}`),
-        React.createElement(
-          "form",
-          { onSubmit: handleSubmit(onSubmit) },
-          React.createElement("label", null, "Recipe Name:"),
-          React.createElement("input", { ...register("name"), required: true }),
+  return recipe ? (
+    <div style={{ maxWidth: "500px", margin: "auto", padding: "20px", background: "#fff", borderRadius: "10px", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>
+      <h1 style={{ textAlign: "center", color: "#333" }}>Edit Recipe</h1>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+        <label>Recipe Name:</label>
+        <input {...register("name", { required: true })} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
 
-          React.createElement("label", null, "Ingredients (comma-separated):"),
-          React.createElement("input", { ...register("ingredients"), required: true }),
+        <label>Ingredients (comma-separated):</label>
+        <input {...register("ingredients", { required: true })} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
 
-          React.createElement("label", null, "Vegetarian:"),
-          React.createElement("input", { type: "checkbox", ...register("vegetarian") }),
+        <label>Vegetarian:</label>
+        <input type="checkbox" {...register("vegetarian")} />
 
-          React.createElement("label", null, "Vegan:"),
-          React.createElement("input", { type: "checkbox", ...register("vegan") }),
+        <label>Vegan:</label>
+        <input type="checkbox" {...register("vegan")} />
 
-          React.createElement("label", null, "Difficulty:"),
-          React.createElement("select", { ...register("difficulty") },
-            React.createElement("option", { value: "Easy" }, "Easy"),
-            React.createElement("option", { value: "Medium" }, "Medium"),
-            React.createElement("option", { value: "Hard" }, "Hard")
-          ),
+        <label>Difficulty:</label>
+        <select {...register("difficulty")} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
 
-          React.createElement("button", { type: "submit" }, "✅")
-        ),
-        React.createElement(Link, { to: "/" }, "🏠 Home")
-      )
-    : React.createElement(
-        "div",
-        null,
-        React.createElement("h1", null, "Recipe Not Found"),
-        React.createElement(Link, { to: "/" }, "🏠 Home")
-      );
+        <button type="submit" style={{ backgroundColor: "#007bff", color: "white", padding: "12px", border: "none", borderRadius: "5px", cursor: "pointer", fontSize: "16px" }}>✅ Save Changes</button>
+      </form>
+      <div style={{ textAlign: "center", marginTop: "15px" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "#007bff", fontSize: "16px" }}>🏠 Cancel & Go Back</Link>
+      </div>
+    </div>
+  ) : (
+    <div style={{ textAlign: "center" }}>
+      <h1>Recipe Not Found</h1>
+      <Link to="/" style={{ textDecoration: "none", color: "#007bff", fontSize: "16px" }}>🏠 Back to Home</Link>
+    </div>
+  );
 };
 
 export default EditRecipePage;

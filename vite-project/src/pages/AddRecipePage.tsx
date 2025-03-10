@@ -33,14 +33,14 @@ const AddRecipePage: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Add New Recipe</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div style={{ maxWidth: "500px", margin: "auto", padding: "20px", background: "#fff", borderRadius: "10px", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>
+      <h1 style={{ textAlign: "center", color: "#333" }}>Add New Recipe</h1>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <label>Recipe Name:</label>
-        <input {...register("name", { required: true })} />
+        <input {...register("name", { required: true })} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
 
         <label>Ingredients (comma-separated):</label>
-        <input {...register("ingredients", { required: true })} />
+        <input {...register("ingredients", { required: true })} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }} />
 
         <label>Vegetarian:</label>
         <input type="checkbox" {...register("vegetarian")} />
@@ -49,15 +49,17 @@ const AddRecipePage: React.FC = () => {
         <input type="checkbox" {...register("vegan")} />
 
         <label>Difficulty:</label>
-        <select {...register("difficulty")}>
+        <select {...register("difficulty")} style={{ padding: "10px", borderRadius: "5px", border: "1px solid #ccc" }}>
           <option value="Easy">Easy</option>
           <option value="Medium">Medium</option>
           <option value="Hard">Hard</option>
         </select>
 
-        <button type="submit">✅</button>
+        <button type="submit" style={{ backgroundColor: "#007bff", color: "white", padding: "12px", border: "none", borderRadius: "5px", cursor: "pointer", fontSize: "16px" }}>✅ Add Recipe</button>
       </form>
-      <Link to="/">🏠 Home</Link>
+      <div style={{ textAlign: "center", marginTop: "15px" }}>
+        <Link to="/" style={{ textDecoration: "none", color: "#007bff", fontSize: "16px" }}>🏠 Cancel & Go Back</Link>
+      </div>
     </div>
   );
 };
