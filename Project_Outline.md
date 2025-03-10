@@ -5,10 +5,6 @@
 - [x] React Table []
 - [x] React Hook Form []
 
-### Optional:
-- [ ] Reactstrap (bootstrap 5 version) []
-- [ ] React-Select []
-
 ## Application should demonstrate CRUD operations
 - Changes stored in local state (not persisted in DB)
 - On refresh, data resets to default state
