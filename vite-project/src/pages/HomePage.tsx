@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
           textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)", // Adds a soft shadow
         }}
       >
-        Ingredients Manager
+        Ingredients Manager 🥗
       </h1>
       <h4>
         Discover the best recipes tailored to the ingredients you have at home! Simply enter your ingredients into the search box one-by-one,   <br />
