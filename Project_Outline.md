@@ -6,8 +6,8 @@
 - [x] React Hook Form []
 
 ## Application should demonstrate CRUD operations
-- Changes stored in local state (not persisted in DB)
-- On refresh, data resets to default state
+- [x] Changes stored in local state (not persisted in DB)
+- [x] On refresh, data resets to default state
 
 ---
 
@@ -33,7 +33,7 @@
   - [x] **Radio field** - Vegan (Yes/No)
   - [x] **Select field** - Difficulty Level (Easy, Medium, Hard)
   - [x] Uses **React-Select** [] (if time permits)
-- On add, users are returned to the Homepage
+- [x] On add, users are returned to the Homepage
 
 ---
 
@@ -42,7 +42,7 @@
 - Users can:
   - [x] Modify values and submit changes
   - [x] Delete the recipe
-- On submit or delete, users return to the Homepage
+- [x] On submit or delete, users return to the Homepage
 
 ---
 
@@ -58,5 +58,5 @@
 
 ## **Reach Goals**
 - [x] Add search capability, that looks for most relevant recipes given a list of ingredients
-- [ ] Incorporate a **chart** [] (e.g., bar chart showing the number of vegetarian vs. non-vegetarian recipes)
-- [ ] Incorporate an `explore` page that pulls from external recipies using json_server
+- [X] Incorporate a **Statistics Page** [] (e.g., bar chart showing the number of vegetarian vs. non-vegetarian recipes)
+- [ ] Incorporate an `explore` page that pulls from external recipes using json_server

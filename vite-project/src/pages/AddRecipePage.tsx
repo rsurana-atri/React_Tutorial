@@ -58,7 +58,7 @@ const AddRecipePage: React.FC = () => {
         <button type="submit" style={{ backgroundColor: "#007bff", color: "white", padding: "12px", border: "none", borderRadius: "5px", cursor: "pointer", fontSize: "16px" }}>✅ Add Recipe</button>
       </form>
       <div style={{ textAlign: "center", marginTop: "15px" }}>
-        <Link to="/" style={{ textDecoration: "none", color: "#007bff", fontSize: "16px" }}>🏠 Cancel & Go Back</Link>
+        <Link to="/" style={{ textDecoration: "none", color: "#007bff", fontSize: "16px" }}>🏠 Cancel & Go Home</Link>
       </div>
     </div>
   );

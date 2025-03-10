@@ -6,7 +6,7 @@ describe("Recipe Manager App - Full Test", () => {
     });
   
     it("Displays the homepage correctly", () => {
-      cy.contains("Ingredients Manager 🥗").should("be.visible");
+      cy.contains("Ingredients Manager").should("be.visible");
       cy.contains("Add New Recipe").should("be.visible");
     });
   
