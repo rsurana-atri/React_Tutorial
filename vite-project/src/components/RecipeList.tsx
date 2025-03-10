@@ -117,7 +117,7 @@ const RecipeList = ({ recipes, deleteRecipe }: RecipeListProps): React.ReactElem
           boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
         },
       },
-      React.createElement("h3", { style: { marginTop: "10px", marginBottom: "10px", color: "#333" } }, "Filter Recipes by Ingredients"),
+      React.createElement("h3", { style: { marginTop: "10px", marginBottom: "10px", color: "#333" } }, "Find Recipes by Ingredients"),
       React.createElement(
         "div",
         { style: { display: "flex", gap: "10px", alignItems: "center" } },
