@@ -19,11 +19,9 @@ const HomePage: React.FC = () => {
           textAlign: "center",
           fontSize: "2.5rem", // Larger font size
           fontWeight: "bold",
-          WebkitBackgroundClip: "text",
-          textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)", // Adds a soft shadow
           padding: "10px",
           marginBottom: "20px",
-          letterSpacing: "2px", // Makes it feel premium
+          letterSpacing: "2px",
           display: "inline-block",
         }}
       >
