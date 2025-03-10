@@ -16,18 +16,20 @@ const HomePage: React.FC = () => {
     <div>
       <h1
         style={{
-          textAlign: "center",
+          textAlign: "left",
           fontSize: "2.5rem", // Larger font size
           fontWeight: "bold",
-          padding: "10px",
-          marginBottom: "20px",
           letterSpacing: "2px",
-          display: "inline-block",
+          textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)", // Adds a soft shadow
         }}
       >
-        Kitchen Manager
+        Ingredients Manager
       </h1>
-      <br></br>
+      <h4>
+        Welcome to the Ingredients Manager! Discover the best recipes tailored to the ingredients you have at home. <br />
+        Simply enter your ingredients into the search box, and watch as the list updates to show recipes ranked by relevance, <br />
+        minimizing the need for additional ingredients. You can also add and edit your own recipes to keep your collection up-to-date. <br />
+      </h4>
       <Link to="/add-recipe">➕ Add New Recipe</Link>
       {recipes.length > 0 ? <RecipeList recipes={recipes} deleteRecipe={deleteRecipe} /> : <p>No recipes found.</p>}
     </div>

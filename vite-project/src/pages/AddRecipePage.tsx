@@ -33,7 +33,7 @@ const AddRecipePage: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: "500px", margin: "auto", padding: "20px", background: "#fff", borderRadius: "10px", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>
+    <div style={{ maxWidth: "500px", margin: "auto", padding: "10px", background: "#fff", borderRadius: "3px", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>
       <h1 style={{ textAlign: "center", color: "#333" }}>Add New Recipe</h1>
       <form onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <label>Recipe Name:</label>
