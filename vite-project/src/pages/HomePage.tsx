@@ -26,9 +26,9 @@ const HomePage: React.FC = () => {
         Ingredients Manager
       </h1>
       <h4>
-        Discover the best recipes tailored to the ingredients you have at home. <br />
-        Simply enter your ingredients into the search box one-by-one, and watch as the list updates to show recipes ranked by relevance, <br />
-        minimizing the need for additional ingredients. You can also add and edit your own recipes to keep your collection up-to-date. <br />
+        Discover the best recipes tailored to the ingredients you have at home! Simply enter your ingredients into the search box one-by-one,   <br />
+        and watch as the list updates to show recipes ranked by relevance, minimizing the need for additional ingredients. You can also add and <br />
+        edit your own recipes to keep your collection up-to-date. <br />
       </h4>
       <Link to="/add-recipe">➕ Add New Recipe</Link>
       {recipes.length > 0 ? <RecipeList recipes={recipes} deleteRecipe={deleteRecipe} /> : <p>No recipes found.</p>}
