@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
           display: "inline-block",
         }}
       >
-        Recipe Manager
+        Kitchen Manager
       </h1>
       <br></br>
       <Link to="/add-recipe">➕ Add New Recipe</Link>
