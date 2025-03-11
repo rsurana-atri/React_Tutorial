@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage";
 import AddRecipePage from "../pages/AddRecipePage";
 import EditRecipePage from "../pages/EditRecipePage";
 import StatisticsPage from "../pages/StatisticsPage";
+import ExplorePage from "../pages/ExplorePage";
 
 const AppRouter: React.FC = () => {
 
@@ -13,6 +14,7 @@ const AppRouter: React.FC = () => {
                 <Route path="/add-recipe" element={<AddRecipePage />} />
                 <Route path="/edit-recipe/:recipeId" element={<EditRecipePage />} />
                 <Route path="/statistics" element={<StatisticsPage />} />
+                <Route path="/explore" element={<ExplorePage />} />
 
             </Routes>
         </Router>

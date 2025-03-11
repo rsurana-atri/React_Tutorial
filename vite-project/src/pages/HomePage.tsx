@@ -71,7 +71,29 @@ const HomePage: React.FC = () => {
             📊 View Statistics
           </Link>
         </div>
-      </div>
+
+        {/* Explore Box */}
+        <div
+          style={{
+            padding: "10px 15px",
+            background: "#f8f9fa",
+            borderRadius: "5px",
+            boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+          }}
+        >
+          <Link
+            to="/explore"
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "#007bff",
+            }}
+          >
+            🌎 Explore
+          </Link>
+        </div>
+
+        </div>
 
       {/* Recipe List */}
       {recipes.length > 0 ? (
