@@ -27,7 +27,7 @@ interface RecipeProviderProps {
 }
 
 const RecipeProvider = ({ children }: RecipeProviderProps): React.ReactElement => {
-  const [recipes, setRecipes] = useState<Recipe[]>(sampleData); //react axios + json server
+  const [recipes, setRecipes] = useState<Recipe[]>(sampleData); //TODO: use react axios + json server
 
   const addRecipe = (newRecipe: Recipe) => {
     setRecipes((prev) => [...prev, { ...newRecipe, id: prev.length + 1 }]);
