@@ -16,11 +16,12 @@ interface RecipeListProps {
   deleteRecipe: (id: number) => void;
 }
 
+const normalize = (str: string) => str.trim().toLowerCase();
+
+
 const RecipeList = ({ recipes, deleteRecipe }: RecipeListProps): React.ReactElement => {
   const [searchIngredients, setSearchIngredients] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-
-  const normalize = (str: string) => str.trim().toLowerCase();
 
   const addIngredient = () => {
     const normalizedInput = normalize(inputValue);
@@ -71,26 +72,23 @@ const RecipeList = ({ recipes, deleteRecipe }: RecipeListProps): React.ReactElem
       { Header: "Difficulty", accessor: "difficulty" },
       {
         Header: "Actions",
-        Cell: ({ row }: { row: { original: Recipe } }) =>
-          React.createElement(
-            "div",
-            { style: { display: "flex", gap: "10px" } },
-            React.createElement(Link, { to: `/edit-recipe/${row.original.id}` }, "✏️"),
-            React.createElement(
-              "button",
-              {
-                onClick: () => deleteRecipe(row.original.id),
-                style: {
-                  border: "none",
-                  background: "none",
-                  cursor: "pointer",
-                  fontSize: "16px",
-                  color: "red",
-                },
-              },
-              "❌"
-            )
-          ),
+        Cell: ({ row }: { row: { original: Recipe } }) => (
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Link to={`/edit-recipe/${row.original.id}`}>✏️</Link>
+            <button
+              onClick={() => deleteRecipe(row.original.id)}
+              style={{
+                border: "none",
+                background: "none",
+                cursor: "pointer",
+                fontSize: "16px",
+                color: "red",
+              }}
+            >
+              ❌
+            </button>
+          </div>
+        ),
       },
     ],
     [deleteRecipe]
@@ -101,152 +99,130 @@ const RecipeList = ({ recipes, deleteRecipe }: RecipeListProps): React.ReactElem
     data: filteredRecipes,
   });
 
-  return React.createElement(
-    "div",
-    null,
-    // ** Filter & Search Box Section **
-    React.createElement(
-      "div",
-      {
-        style: {
+  return (
+    <div>
+      {/* Filter & Search Box Section */}
+      <div
+        style={{
           background: "#f8f9fa",
           padding: "15px",
           borderRadius: "10px",
           marginTop: "20px",
           marginBottom: "20px",
           boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
-        },
-      },
-      React.createElement("h3", { style: { marginTop: "10px", marginBottom: "10px", color: "#333" } }, "Find Recipes by Ingredients"),
-      React.createElement(
-        "div",
-        { style: { display: "flex", gap: "10px", alignItems: "center" } },
-        React.createElement("input", {
-          type: "text",
-          placeholder: "Enter ingredient...",
-          value: inputValue,
-          onChange: (e) => setInputValue(e.target.value),
-          onKeyDown: (e) => e.key === "Enter" && addIngredient(),
-          style: { padding: "8px", border: "1px solid #ccc", borderRadius: "5px", width: "90%" },
-        }),
-        React.createElement(
-          "button",
-          {
-            onClick: addIngredient,
-            style: {
+        }}
+      >
+        <h3 style={{ marginTop: "10px", marginBottom: "10px", color: "#333" }}>
+          Find Recipes by Ingredients
+        </h3>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <input
+            type="text"
+            placeholder="Enter ingredient..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addIngredient()}
+            style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "5px", width: "90%" }}
+          />
+          <button
+            onClick={addIngredient}
+            style={{
               padding: "8px",
               border: "none",
               background: "#007bff",
               color: "white",
               borderRadius: "5px",
               cursor: "pointer",
-            },
-          },
-          "+ Add"
-        )
-      ),
-      // Ingredient Tags UI (Fully Implemented removeIngredient)
-      React.createElement(
-        "div",
-        { style: { marginTop: "10px", display: "flex", gap: "5px", flexWrap: "wrap" } },
-        searchIngredients.map((ingredient) =>
-          React.createElement(
-            "div",
-            {
-              key: ingredient,
-              style: {
+            }}
+          >
+            + Add
+          </button>
+        </div>
+        {/* Ingredient Tags UI (Fully Implemented removeIngredient) */}
+        <div style={{ marginTop: "10px", display: "flex", gap: "5px", flexWrap: "wrap" }}>
+          {searchIngredients.map((ingredient) => (
+            <div
+              key={ingredient}
+              style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "5px",
                 background: "#e0e0e0",
                 padding: "5px 10px",
                 borderRadius: "20px",
-              },
-            },
-            ingredient,
-            React.createElement(
-              "button",
-              {
-                onClick: () => removeIngredient(ingredient),
-                style: {
+              }}
+            >
+              {ingredient}
+              <button
+                onClick={() => removeIngredient(ingredient)}
+                style={{
                   border: "none",
                   background: "none",
                   cursor: "pointer",
                   color: "red",
                   fontSize: "14px",
-                },
-              },
-              "❌"
-            )
-          )
-        )
-      )
-    ),
-    // ** Recipe Table **
-    React.createElement(
-      "table",
-      { ...getTableProps(), style: { width: "100%", borderCollapse: "collapse", marginTop: "20px" } }, // ✅ Cleaned table borders
-      React.createElement(
-        "thead",
-        null,
-        headerGroups.map((headerGroup, index) =>
-          React.createElement(
-            "tr",
-            {
-              ...headerGroup.getHeaderGroupProps(),
-              key: `header-${index}`,
-              style: { background: "#333", color: "white", fontSize: "16px" },
-            },
-            headerGroup.headers.map((column, colIndex) =>
-              React.createElement(
-                "th",
-                {
-                  ...column.getHeaderProps(),
-                  key: `col-${colIndex}`,
-                  style: {
+                }}
+              >
+                ❌
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Recipe Table */}
+      <table {...getTableProps()} style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
+        <thead>
+          {headerGroups.map((headerGroup, index) => (
+            <tr
+              {...headerGroup.getHeaderGroupProps()}
+              key={`header-${index}`}
+              style={{ background: "#333", color: "white", fontSize: "16px" }}
+            >
+              {headerGroup.headers.map((column, colIndex) => (
+                <th
+                  {...column.getHeaderProps()}
+                  key={`col-${colIndex}`}
+                  style={{
                     padding: "12px",
                     textAlign: "left",
                     borderBottom: "2px solid #ddd",
-                  },
-                },
-                column.render("Header")
-              )
-            )
-          )
-        )
-      ),
-      React.createElement(
-        "tbody",
-        getTableBodyProps(),
-        rows.map((row, rowIndex) => {
-          prepareRow(row);
-          return React.createElement(
-            "tr",
-            {
-              ...row.getRowProps(),
-              key: `row-${row.original.id}`,
-              style: { background: rowIndex % 2 === 0 ? "#f9f9f9" : "white" },
-            },
-            row.cells.map((cell, cellIndex) =>
-              React.createElement(
-                "td",
-                {
-                  ...cell.getCellProps(),
-                  key: `cell-${rowIndex}-${cellIndex}`,
-                  style: {
-                    padding: "12px",
-                    borderBottom: "1px solid #ddd",
-                    fontWeight: cell.column.id === "id" ? "bold" : "normal",
-                    background: cell.column.id === "id" ? "#e0e0e0" : "transparent",
-                  },
-                },
-                cell.render("Cell")
-              )
-            )
-          );
-        })
-      )
-    )
+                  }}
+                >
+                  {column.render("Header")}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row, rowIndex) => {
+            prepareRow(row);
+            return (
+              <tr
+                {...row.getRowProps()}
+                key={`row-${row.original.id}`}
+                style={{ background: rowIndex % 2 === 0 ? "#f9f9f9" : "white" }}
+              >
+                {row.cells.map((cell, cellIndex) => (
+                  <td
+                    {...cell.getCellProps()}
+                    key={`cell-${rowIndex}-${cellIndex}`}
+                    style={{
+                      padding: "12px",
+                      borderBottom: "1px solid #ddd",
+                      fontWeight: cell.column.id === "id" ? "bold" : "normal",
+                      background: cell.column.id === "id" ? "#e0e0e0" : "transparent",
+                    }}
+                  >
+                    {cell.render("Cell")}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
