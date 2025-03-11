@@ -58,5 +58,5 @@
 
 ## **Reach Goals**
 - [x] Add search capability, that looks for most relevant recipes given a list of ingredients
-- [X] Incorporate a **Statistics Page** [] (e.g., bar chart showing the number of vegetarian vs. non-vegetarian recipes)
-- [ ] Incorporate an `explore` page that pulls from external recipes using json_server
+- [x] Incorporate a **Statistics Page** [] (e.g., bar chart showing the number of vegetarian vs. non-vegetarian recipes)
+- [x] Incorporate an `explore` page that pulls from external recipes using json_server
