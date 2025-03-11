@@ -3,7 +3,7 @@ import { ResponsiveBar } from "@nivo/bar";
 import { RecipeContext } from "../context/RecipeProvider";
 import { Link } from "react-router-dom";
 
-import { Recipe } from "../types"; // Ensure you have a Recipe type defined in your types file
+import { Recipe } from "../types";
 
 const useStatisticsData = (recipes: Recipe[]) => {
     const flareColors = ["#f94144", "#f3722c", "#f8961e", "#f9844a", "#f9c74f", "#90be6d", "#43aa8b", "#577590"];
