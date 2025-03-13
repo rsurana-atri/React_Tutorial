@@ -1,0 +1,229 @@
+import React, { useMemo, useState } from "react";
+import { useTable, Column } from "react-table";
+import { Link } from "react-router-dom";
+
+interface Recipe {
+  id: number;
+  name: string;
+  ingredients: string[];
+  vegetarian: boolean;
+  vegan: boolean;
+  difficulty: "Easy" | "Medium" | "Hard";
+}
+
+interface RecipeListProps {
+  recipes: Recipe[];
+  deleteRecipe: (id: number) => void;
+}
+
+const normalize = (str: string) => str.trim().toLowerCase();
+
+
+const RecipeList = ({ recipes, deleteRecipe }: RecipeListProps): React.ReactElement => {
+  const [searchIngredients, setSearchIngredients] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const addIngredient = () => {
+    const normalizedInput = normalize(inputValue);
+    if (normalizedInput && !searchIngredients.includes(normalizedInput)) {
+      setSearchIngredients([...searchIngredients, normalizedInput]);
+    }
+    setInputValue(""); // Clear input after adding
+  };
+
+  const removeIngredient = (ingredient: string) => {
+    setSearchIngredients(searchIngredients.filter((ing) => ing !== ingredient));
+  };
+
+  const filteredRecipes = useMemo(() => {
+    if (searchIngredients.length === 0) {
+      return [...recipes].sort((a, b) => a.id - b.id); // Default sort by ID
+    }
+
+    return [...recipes]
+      .map((recipe) => ({
+        ...recipe,
+        matchCount: recipe.ingredients.filter((ing) =>
+          searchIngredients.some((searchTerm) => normalize(ing).includes(searchTerm))
+        ).length,
+      }))
+      .sort((a, b) => b.matchCount - a.matchCount);
+  }, [recipes, searchIngredients]);
+
+  const columns: Column<Recipe>[] = useMemo(
+    () => [
+      { Header: "ID", accessor: "id" },
+      { Header: "Name", accessor: "name" },
+      {
+        Header: "Ingredients",
+        accessor: "ingredients",
+        Cell: ({ value }: { value: string[] }) => value.join(", "),
+      },
+      {
+        Header: "Vegetarian",
+        accessor: "vegetarian",
+        Cell: ({ value }: { value: boolean }) => (value ? "Yes" : "No"),
+      },
+      {
+        Header: "Vegan",
+        accessor: "vegan",
+        Cell: ({ value }: { value: boolean }) => (value ? "Yes" : "No"),
+      },
+      { Header: "Difficulty", accessor: "difficulty" },
+      {
+        Header: "Actions",
+        Cell: ({ row }: { row: { original: Recipe } }) => (
+          <div style={{ display: "flex", gap: "10px" }}>
+            <Link to={`/edit-recipe/${row.original.id}`}>✏️</Link>
+            <button
+              onClick={() => deleteRecipe(row.original.id)}
+              style={{
+                border: "none",
+                background: "none",
+                cursor: "pointer",
+                fontSize: "16px",
+                color: "red",
+              }}
+            >
+              ❌
+            </button>
+          </div>
+        ),
+      },
+    ],
+    [deleteRecipe]
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+    columns,
+    data: filteredRecipes,
+  });
+
+  return (
+    <div>
+      {/* Filter & Search Box Section */}
+      <div
+        style={{
+          background: "#f8f9fa",
+          padding: "15px",
+          borderRadius: "10px",
+          marginTop: "20px",
+          marginBottom: "20px",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+        }}
+      >
+        <h3 style={{ marginTop: "10px", marginBottom: "10px", color: "#333" }}>
+          Find Recipes by Ingredients
+        </h3>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+          <input
+            type="text"
+            placeholder="Enter ingredient..."
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && addIngredient()}
+            style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "5px", width: "90%" }}
+          />
+          <button
+            onClick={addIngredient}
+            style={{
+              padding: "8px",
+              border: "none",
+              background: "#007bff",
+              color: "white",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            + Add
+          </button>
+        </div>
+        {/* Ingredient Tags UI (Fully Implemented removeIngredient) */}
+        <div style={{ marginTop: "10px", display: "flex", gap: "5px", flexWrap: "wrap" }}>
+          {searchIngredients.map((ingredient) => (
+            <div
+              key={ingredient}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
+                background: "#e0e0e0",
+                padding: "5px 10px",
+                borderRadius: "20px",
+              }}
+            >
+              {ingredient}
+              <button
+                onClick={() => removeIngredient(ingredient)}
+                style={{
+                  border: "none",
+                  background: "none",
+                  cursor: "pointer",
+                  color: "red",
+                  fontSize: "14px",
+                }}
+              >
+                ❌
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Recipe Table */}
+      <table {...getTableProps()} style={{ width: "100%", borderCollapse: "collapse", marginTop: "20px" }}>
+        <thead>
+          {headerGroups.map((headerGroup, index) => (
+            <tr
+              {...headerGroup.getHeaderGroupProps()}
+              key={`header-${index}`}
+              style={{ background: "#333", color: "white", fontSize: "16px" }}
+            >
+              {headerGroup.headers.map((column, colIndex) => (
+                <th
+                  {...column.getHeaderProps()}
+                  key={`col-${colIndex}`}
+                  style={{
+                    padding: "12px",
+                    textAlign: "left",
+                    borderBottom: "2px solid #ddd",
+                  }}
+                >
+                  {column.render("Header")}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row, rowIndex) => {
+            prepareRow(row);
+            return (
+              <tr
+                {...row.getRowProps()}
+                key={`row-${row.original.id}`}
+                style={{ background: rowIndex % 2 === 0 ? "#f9f9f9" : "white" }}
+              >
+                {row.cells.map((cell, cellIndex) => (
+                  <td
+                    {...cell.getCellProps()}
+                    key={`cell-${rowIndex}-${cellIndex}`}
+                    style={{
+                      padding: "12px",
+                      borderBottom: "1px solid #ddd",
+                      fontWeight: cell.column.id === "id" ? "bold" : "normal",
+                      background: cell.column.id === "id" ? "#e0e0e0" : "transparent",
+                    }}
+                  >
+                    {cell.render("Cell")}
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default RecipeList;
